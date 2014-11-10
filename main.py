@@ -28,6 +28,8 @@ def home():
 @route('/')
 @route('/<query>')
 def home(query=None):
+    if query is None:
+        home()
     vhost = request.urlparts.netloc.split('.')[0]
     if vhost != 'gif':
         query = vhost
