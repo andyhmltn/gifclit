@@ -14,11 +14,23 @@ from config import ACCT_KEY
 ROOT_URI = 'https://api.datamarket.azure.com/Bing/Search/Image'
 
 
+def random_line(afile):
+    line = next(afile)
+    for num, aline in enumerate(afile):
+        if random.randrange(num + 2):
+            continue
+        line = aline
+    return line
+
+
 @route('/')
 @route('/<query>')
 def home(query=None):
     response.set_header("Server", "GIF.CL.IT")
+    response.set_header("Cache-Control", "no-cache, Expires=-1")
     vhost = request.urlparts.netloc.split('.')[0]
+    if query == 'random':
+        query = random_line(open('/usr/share/dict/words', 'r'))
     if vhost != 'gif':
         query = vhost
     if query is None or query == 'about':
@@ -33,16 +45,16 @@ def home(query=None):
     good_image = False
 
     try:
-	while not good_image:
-	    if data[serp_idx]['ContentType'] == "image/animatedgif" and \
-	       data[serp_idx]['Width'] >= 250 and \
-	       data[serp_idx]['Height'] >= 250 and \
-	       data[serp_idx]['FileSize'] >= 250000:
-		good_image = True
-	    else:
-		serp_idx = serp_idx + 1
-		if attempts > max_attempts:
-		    raise
+        while not good_image:
+            if data[serp_idx]['ContentType'] == "image/animatedgif" and \
+               data[serp_idx]['Width'] >= 250 and \
+               data[serp_idx]['Height'] >= 250 and \
+               data[serp_idx]['FileSize'] >= 250000:
+                good_image = True
+            else:
+                serp_idx = serp_idx + 1
+                if attempts > max_attempts:
+                    raise
     except Exception:
         return "Unable to reticulate splines"
 
