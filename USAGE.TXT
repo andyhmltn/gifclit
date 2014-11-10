@@ -1,18 +1,18 @@
-GIF.CL.IT                    General Commands Manual                   GIF.CL.IT(1)
+GIF.CL.IT                    General Commands Manual                GIF.CL.IT(1)
 
 NAME
      gif.cl.it -- retrieve a gif image for a search query
 
 SYNOPSIS
-     http://<query>.gif.cl.it/
+     http://[query].gif.cl.it/
 
 DESCRIPTION
-     The gif.cl.it service takes a search query and asks 3rd party services to find an
-     appropiate image for said search. No filters or restrictions are made on the
-     explicitness of the images.
+     The gif.cl.it service takes [query] and asks 3rd party services to find an
+     appropiate animated GIF image for said query. No filters or restrictions
+     are made on the explicitness of returned images.
 
 EXAMPLES
-     The command(s):
+     The request:
 
             http://winning.gif.cl.it
 
@@ -20,4 +20,6 @@ EXAMPLES
 
             http://gif.cl.it/winning 
 
-     viewed in a browser will likely return an image of charlie sheen.
+     viewed in a browser will likely return an image of Charlie Sheen.
+
+WWW                            November 09, 2014                            WWW

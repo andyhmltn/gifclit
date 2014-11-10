@@ -1,6 +1,8 @@
 gifclit
 =======
 
+https://github.com/jcslassi/gifclit/USAGE.TXT
+
 ```bash
 git clone https://github.com/jcslassi/gifclit.git
 virtualenv .
