@@ -19,20 +19,15 @@ def favicon():
     return ''
 
 
-@route('/about')
-def home():
-    with open('USAGE.TXT', 'r') as f:
-        return "<pre>" + ''.join(f.readlines()) + "</pre>"
-
-
 @route('/')
 @route('/<query>')
 def home(query=None):
-    if query is None:
-        home()
     vhost = request.urlparts.netloc.split('.')[0]
     if vhost != 'gif':
         query = vhost
+    if query is None or query == 'about':
+        with open('USAGE.TXT', 'r') as f:
+            return "<pre>" + ''.join(f.readlines()) + "</pre>"
     response.set_header("Server", "GIF.CL.IT")
     request_uri = ROOT_URI + '?$format=json&Query=' + quote_plus("'"+query+" gif'")
     data = requests.get(request_uri, auth=(ACCT_KEY, ACCT_KEY))
