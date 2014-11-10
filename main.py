@@ -14,21 +14,16 @@ from config import ACCT_KEY
 ROOT_URI = 'https://api.datamarket.azure.com/Bing/Search/Image'
 
 
-@route('/favicon.ico')
-def favicon():
-    return ''
-
-
 @route('/')
 @route('/<query>')
 def home(query=None):
+    response.set_header("Server", "GIF.CL.IT")
     vhost = request.urlparts.netloc.split('.')[0]
     if vhost != 'gif':
         query = vhost
     if query is None or query == 'about':
         with open('USAGE.TXT', 'r') as f:
             return "<pre>" + ''.join(f.readlines()) + "</pre>"
-    response.set_header("Server", "GIF.CL.IT")
     request_uri = ROOT_URI + '?$format=json&Query=' + quote_plus("'"+query+" gif'")
     data = requests.get(request_uri, auth=(ACCT_KEY, ACCT_KEY))
     data = json.loads(data.text)['d']['results']
@@ -52,6 +47,11 @@ def home(query=None):
         return "Unable to reticulate splines"
 
     return '<img style="margin:0;position:absolute;top:0;left:0;" src="' + data[serp_idx]['MediaUrl'] + '" />'
+
+
+@route('/favicon.ico')
+def favicon():
+    return ''
 
 
 if __name__ == '__main__':
