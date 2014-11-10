@@ -37,16 +37,19 @@ def home(query=None):
     serp_idx = 0
     good_image = False
 
-    while not good_image:
-        if data[serp_idx]['ContentType'] == "image/animatedgif" and \
-           data[serp_idx]['Width'] >= 250 and \
-           data[serp_idx]['Height'] >= 250 and \
-           data[serp_idx]['FileSize'] >= 250000:
-            good_image = True
-        else:
-            serp_idx = serp_idx + 1
-            if attempts > max_attempts:
-                return "None"
+    try:
+	while not good_image:
+	    if data[serp_idx]['ContentType'] == "image/animatedgif" and \
+	       data[serp_idx]['Width'] >= 250 and \
+	       data[serp_idx]['Height'] >= 250 and \
+	       data[serp_idx]['FileSize'] >= 250000:
+		good_image = True
+	    else:
+		serp_idx = serp_idx + 1
+		if attempts > max_attempts:
+		    raise
+    except Exception:
+        return "Unable to reticulate splines"
 
     return '<img style="margin:0;position:absolute;top:0;left:0;" src="' + data[serp_idx]['MediaUrl'] + '" />'
 
