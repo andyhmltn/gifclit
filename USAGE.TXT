@@ -4,7 +4,7 @@ NAME
      gif.cl.it -- retrieve a gif image for a search query
 
 SYNOPSIS
-     http://[query].gif.cl.it/
+     http://query.gif.cl.it/
 
 DESCRIPTION
      The gif.cl.it service takes [query] and asks 3rd party services to find an
